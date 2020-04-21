@@ -1,0 +1,141 @@
+<div>
+  <div class="ui-g-2">
+
+  </div>
+  <div class="ui-g-8">
+    <p-carousel [value]="products" styleClass="custom-carousel" [numVisible]="3"  [circular]="true" [autoplayInterval]="3000" headerText="Selecciona un producto:" >
+      <p-header>
+        <h2>Selecciona un producto:</h2>
+      </p-header>
+      <ng-template let-product pTemplate="item">
+        <div class="car-details">
+          <div class="p-grid p-nogutter">
+            <div class="p-col-13">
+              <img src="{{getImage(product.image,product.imageType)}}" width="299" height="200" />
+            </div>
+            <div class="p-col-13 car-data">
+              <div class="car-title"><b>{{product.name}}</b></div>
+              <div class="car-subtitle">{{product.description}} | {{product.unit}}</div>
+
+              <div class="car-buttons">
+                <button pButton type="button" class="ui-button-secondary" icon="pi pi-search" (click)="selectProduct($event, product)"></button>
+                <button pButton type="button" class="ui-button-secondary" icon="pi pi-star"></button>
+                <button pButton type="button" class="ui-button-secondary" icon="pi pi-cog"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+  </div>
+  <div class="ui-g-2">
+
+  </div>
+  <div class="ui-g-12">
+    <div class="ui-g-5">
+
+    </div>
+    <div class="ui-g-2 ">
+      <b><p-dropdown [options]="localities"
+        placeholder="Selecciona una Localidad"
+        [(ngModel)]="localitie_id"
+        (onChange)="getEnterprises(localitie_id)"
+        ></p-dropdown>{{localitie_id}}</b>
+    </div>
+    <div class="ui-g-5">
+    </div>
+  </div>
+  <div>
+    <div class="ui-g-2">
+
+    </div>
+    <div class="ui-g-8" *ngIf="showEnterprises">
+      <p-dataView #dv [value]="enterprises" [paginator]="true" [rows]="20" headerText="Selecciona una empresa:" paginatorPosition="both" filterBy="brand"
+                  [sortField]="sortField" [sortOrder]="sortOrder">
+        <p-header>
+          <div class="ui-helper-clearfix">
+            <div class="ui-g">
+              <div class="ui-g-12"><h2>Selecciona una empresa:</h2></div>
+              <div class="ui-g-12 ui-md-4">
+                <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By" (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+              </div>
+              <div class="ui-g-6 ui-md-4 filter-container">
+                <div style="position:relative">
+                  <input type="search" pInputText placeholder="Search by brand" (input)="dv.filter($event.target.value)">
+                </div>
+              </div>
+              <div class="ui-g-6 ui-md-4" style="text-align:right">
+                <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+              </div>
+            </div>
+          </div>
+        </p-header>
+        <ng-template let-enterprise pTemplate="listItem">
+          <div class="ui-g-12">
+            <div class="ui-g-12">
+              <div class="ui-g-12" >
+                <div class="ui-g-3 dataView-container ">
+                  <img  src="{{getImage(enterprise.image,enterprise.imageType)}}" width="200" height="100">
+                </div>
+                <div class="ui-g-9">
+                  <div class="ui-g-2  title" > <b>{{enterprise.name}}</b></div>
+                  <div class="ui-g-2" *ngIf="selectedProduct.name=='Botella'">&nbsp;&nbsp;<b>{{enterprise.costBottle}}ctvs/{{selectedProduct.unit}}&nbsp;&nbsp;</b></div>
+                  <div class="ui-g-2" *ngIf="selectedProduct.name=='Papel'">&nbsp;&nbsp;<b>{{enterprise.costPaper}}ctvs/{{selectedProduct.unit}}&nbsp;&nbsp;</b></div>
+                  <div class="ui-g-2" *ngIf="selectedProduct.name=='Vidrio'">&nbsp;&nbsp;<b>{{enterprise.costGlass}}ctvs/{{selectedProduct.unit}}&nbsp;&nbsp;</b></div>
+                  <div class="ui-g-2" *ngIf="selectedProduct.name=='Aluminio'">&nbsp;&nbsp;<b>{{enterprise.costMetal}}ctvs/{{selectedProduct.unit}}&nbsp;&nbsp;</b></div>
+                  <div class="ui-g-2" *ngIf="enterprise.localidad_id==1"><b>&nbsp;&nbsp;&nbsp;Quito</b></div>
+                  <div class="ui-g-2" *ngIf="enterprise.localidad_id==2"><b>&nbsp;&nbsp;&nbsp;Guayaquil</b></div>
+                  <div class="ui-g-2" *ngIf="enterprise.localidad_id==3"><b>&nbsp;&nbsp;&nbsp;Cuenca</b></div>
+                  <div class="ui-g-2">{{enterprise.phone}}</div>
+                  <div class="ui-g-2"><b><div > {{enterprise.description}}</div></b></div>
+                  &nbsp;&nbsp;&nbsp;&nbsp;<button pButton type="button" label="Continuar" class="ui-button-rounded ui-button-success" (click)="selectCarS($event, enterprise)"></button>
+                 <div class="ui-g-2  ">
+                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="../../assets/images/icon-marker.png" (click)="selectCar($event, enterprise)" width="40" height="40">
+                 </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </ng-template>
+        <ng-template let-enterprise pTemplate="gridItem">
+          <div style="padding:.5em" class="ui-g-12 ui-md-3">
+            <p-panel [header]="enterprise.title" [style]="{'text-align':'center'}">
+              <img src="{{enterprise.image}}" width="60">
+              <div class="car-detail">{{enterprise.year}} - {{enterprise.color}}</div>
+              <hr class="ui-widget-content" style="border-top:0">
+              <button pButton type="button" icon="pi pi-search" (click)="selectCar($event, enterprise)" style="margin-top:0"></button>
+            </p-panel>
+          </div>
+        </ng-template>
+      </p-dataView>
+
+      <p-dialog header="Detalle empresa" [(visible)]="displayDialog" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '300'}"  (onAfterHide)="onDialogHide()">
+        <div class="ui-g" *ngIf="selectedEnterprise">
+          <div class="ui-g-12 mapContainer">
+            <app-map [token]="selectedEnterprise"></app-map>
+          </div>
+        </div>
+      </p-dialog>
+      <p-dialog header="Detalle empresa" [(visible)]="displayDialogLogin" scroll="true" [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: ''}"  (onAfterHide)="onDialogHide()">
+        <div class="ui-g" *ngIf="selectedEnterprise" >
+          <div class="ui-g-12 cotizacion " *ngIf="!validate1 || null ">
+            <app-login  ></app-login>
+          </div>
+          <div class="ui-g-12 cotizacion" *ngIf="validate1">
+              <p-scrollPanel [style]="{width: '100%', height: '450px'}">
+                <app-register-reservations [product1]="selectedProduct" [token1]="selectedEnterprise"></app-register-reservations>
+            </p-scrollPanel>
+
+        </div>
+        </div>
+      </p-dialog>
+    </div>
+    <div class="ui-g-2">
+
+    </div>
+
+  </div>
+</div>
+

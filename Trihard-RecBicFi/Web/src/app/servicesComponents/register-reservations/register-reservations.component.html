@@ -1,0 +1,123 @@
+<br>
+<br>
+<br>
+
+<p-toast [style]="{marginTop: '80px'}"></p-toast>
+<div class="ui-g-12">
+  <div class="ui-g-12">
+    <!--<div class="ui-grid-col-2 containers ui-fluid " *ngIf="!token1">
+      <br>
+      <br>
+      <br>
+      <div class="ui-fluid">
+        <p-card class="register ui-fluid" header="Make your reservation now!!!" subheader="Access right now!"
+                [style]="{width: '360px'}" styleClass="ui-card-shadow ">
+          <p-header>
+            <img class="img" align="left" src="../../assets/arbol.jpg"/>
+          </p-header>
+          <div>
+            Enjoy the convenience of our web service, so you can schedule an appointment for the day and time you want
+            to enjoy our barber and hairdressing services.
+          </div>
+          <p-footer>
+            <a routerLink="/home" style="margin-right: .25em">Go to Home</a>
+
+          </p-footer>
+        </p-card>
+      </div>
+    </div> !-->
+    <div class="ui-g-12">
+    <div class="ui-g-12">
+      <div class="ui-g-12">
+        <div>
+          <form [formGroup]="reservationFrom" class="login-container"
+                (ngSubmit)="onSubmit(reservationFrom.value)">
+                <div class="ui-g-2"></div>
+                <div class="ui-g-8"><p-panel
+                  class="ng-tns-c4-15 ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all ng-star-inserted "
+                  header="Registrar tu solicitud">
+                  <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <br>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Fecha *:
+                      </div>
+                      <div class="ui-grid-col-6">
+                        <p-calendar formControlName="reservation_date" placeholder="Required" showIcon="true"
+                                    [monthNavigator]="true" [yearNavigator]="true" yearRange="1950:2030"
+                                    ShowTime="false" [(ngModel)]="reservation.reservation_date"></p-calendar>
+                      </div>
+                      <div>
+                        <p-message severity="error" readonlyInput="true"
+                                   [text]="reservationFrom.controls['reservation_date'].errors['required'] ? 'Reservation date is required' : ''"
+                                   *ngIf="!reservationFrom.controls['reservation_date'].valid && reservationFrom.controls['reservation_date'].dirty"></p-message>
+                        <p-message severity="success"
+                                   *ngIf="reservationFrom.controls['reservation_date'].valid && reservationFrom.controls['reservation_date'].dirty"></p-message>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                       Hora *:
+                      </div>
+                      <div class="ui-grid-col-6">
+                        <p-calendar formControlName="reservation_hour" [timeOnly]="true" placeholder="Required"
+                                    showIcon="true"
+                                    [(ngModel)]="reservation.reservation_hour" hourFormat="24"></p-calendar>
+                      </div>
+                      <div>
+                        <p-message severity="error" readonlyInput="true"
+                                   [text]="reservationFrom.controls['reservation_hour'].errors['required'] ? 'Reservation hour is required' : ''"
+                                   *ngIf="!reservationFrom.controls['reservation_hour'].valid && reservationFrom.controls['reservation_hour'].dirty"></p-message>
+                        <p-message severity="success"
+                                   *ngIf="reservationFrom.controls['reservation_hour'].valid && reservationFrom.controls['reservation_hour'].dirty"></p-message>
+                      </div>
+                    </div>
+                    <br>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Empresa *:
+                      </div>
+                      <div class="ui-grid-col-6">
+                        <div>{{token1.name}}</div>
+                      </div>
+                      
+                    </div>
+                    <br>
+                    
+                    <br>
+                    
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2">
+                        Producto *:
+                      </div>
+                      <div class="ui-grid-col-6">
+                        {{product1.name}}
+                      </div>
+                      
+                    </div>
+    
+                    <br>
+                    <div class="ui-grid-row">
+                      <div class="ui-grid-col-2"></div>
+                      <div class="ui-grid-col-6">
+                        <button pButton type="submit" label="Register" [disabled]="!reservationFrom.valid"
+                                (click)="onRegisterReservations()"></button>
+                      </div>
+                      <div class="ui-grid-col-4"></div>
+                    </div>
+                    <div style="text-align:center;margin-top:20px" *ngIf="submitted">
+                      Form Submitted
+                      <br>
+    
+                    </div>
+                  </div>
+                </p-panel>
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>

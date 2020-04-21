@@ -1,0 +1,27 @@
+.map {
+  height: 100%;
+  padding: 0;
+}
+.mapContainer {
+  height: 300px;
+  width: 600px;
+}
+.dataView-container {
+  border-right: 2px solid black;
+  height: 100%;
+}
+.title {
+  font-size: larger;
+}
+.text{
+  font-size: larger;
+}
+.cotizacion{
+  width: 1000px;
+}
+.cotizacion1{
+  width: 950px;
+}
+.size{
+  width: 50px;
+}

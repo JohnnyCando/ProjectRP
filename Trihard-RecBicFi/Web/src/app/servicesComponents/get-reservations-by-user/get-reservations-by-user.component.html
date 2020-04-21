@@ -1,0 +1,99 @@
+<body class="body2">
+<<div class="login " *ngFor=" let reservation of reservations  " align="center">
+  <div class="border">
+    <p-card header="Reservation : {{reservation.name}}" subheader="" [style]="{width: '500px',height:'550px'}"
+            styleClass="ui-card-shadow ">
+      <p-header>
+      </p-header>
+      <br><br>
+      <div align="center">
+        <div aling="center">
+          <div class="ui-grid-row" align="center">
+            <div class="ui-grid-col-2">
+              Fecha de inicio:
+            </div>
+            <div align="center">
+              {{getFormatDate(reservation.created_at)}}
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div aling="center">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              Fecha de entrega:
+            </div>
+            <div align="center">
+              {{getFormatDate(reservation.reservation_date)}}
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div aling="center">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              Hora de cita:
+            </div>
+            <div align="center">
+              {{reservation.reservation_hour}}
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div>
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">Nombre dle Solicitante:
+            </div>
+            <div align="center">
+              {{reservation.first_name}}
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div aling="center">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              State:
+            </div>
+            <div align="center">
+              {{reservation.state}}
+            </div>
+          </div>
+        </div>
+        <br>
+        <br>
+        <div aling="center">
+          <div class="ui-grid-row">
+            <div class="ui-grid-col-2">
+              Unidad/Producto:
+            </div>
+            <div align="center">
+              {{reservation.unit}}
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="ui-grid-col-6">
+          <button pButton type="submit" label="LLego a la cita"
+                  (click)="onRegisterNotification(reservation.user_id,reservation.id)"
+          ></button>
+        </div>
+      </div>
+
+      <p-footer>
+        ______________________________________________________
+      </p-footer>
+    </p-card>
+
+  </div>
+  <br><br><br>
+</div>
+
+
+</body>
+
+
